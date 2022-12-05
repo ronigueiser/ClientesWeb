@@ -1,0 +1,33 @@
+{
+  "name": "01-parcial",
+  "version": "0.0.0",
+  "description": "Parcial 01 de Clientes Web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --mode development",
+    "prod": "webpack --mode production",
+    "serve": "webpack-dev-server --mode development --hot --port 8000"
+  },
+  "keywords": [],
+  "author": "Roni Gueiser",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.20.5",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.0",
+    "css-loader": "^6.7.2",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "vue-loader": "^17.0.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.0",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "firebase": "^9.9.4",
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6"
+  }
+}
