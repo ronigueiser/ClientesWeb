@@ -3,6 +3,7 @@ import {saveChatMessage, suscribeToChatMessages} from "../chat/chat";
 import {dateToString} from "../helpers/date";
 import Loader from "../components/Loader.vue";
 import {subscribeToAuthChanges} from "../services/auth";
+import ChatMessageUser from "../components/ChatMessageUser.vue";
 // import {onMounted, onUnmounted, ref} from "vue";
 //
 //
@@ -83,7 +84,7 @@ import {subscribeToAuthChanges} from "../services/auth";
 
 export default {
   name: "Chat",
-  components: {Loader},
+  components: {ChatMessageUser, Loader},
   data: () => ({
     messages: [],
     newMessage: {
@@ -140,13 +141,11 @@ export default {
               <li v-for="message in messages" :key="message.id">
                 <b>
                   ({{ dateToString(message.created_at) }})
-                  <router-link
-                      v-if="message.userId !== user.id"
-                      :to="`/usuario/${message.userId}`"
-                  >{{ message.name }}</router-link>
-                  <template
-                      v-else
-                  >{{ message.name }}</template>
+
+                  <ChatMessageUser
+                  :message="message"
+                  :show-link="message.userId !== user.id"
+                  />
                   dijo
                 </b>: {{ message.text }}
               </li>
