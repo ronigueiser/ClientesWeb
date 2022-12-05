@@ -3,7 +3,8 @@ import {saveChatMessage, suscribeToChatMessages} from "../chat/chat";
 import {dateToString} from "../helpers/date";
 import Loader from "../components/Loader.vue";
 import {subscribeToAuthChanges} from "../services/auth";
-//
+// import {onMounted, onUnmounted, ref} from "vue";
+
 // const messages = ref([]);
 // const newMessage = ref({
 //     text: '',
@@ -12,7 +13,32 @@ import {subscribeToAuthChanges} from "../services/auth";
 // const user = ref ({
 //     id: null,
 //     email: null,
+//      displayName: null,
+// });
 //
+// const messagesLoaded = ref(false);
+//
+// let unsubscribe, unsubscribeAuth;
+//
+// function save() {
+//     saveChatMessage({
+//       ...newMessage.value,
+//        name: user.value.displayName || user.value.email,
+//     })
+//   newMessage.value.text = "";
+// }
+//
+// onMounted(() => {
+//   unsubscribe = suscribeToChatMessages(newMessages => {
+//     messages.value = newMessages;
+//     messagesLoaded.value = true;
+//   });
+//   unsubscribeAuth = subscribeToAuthChanges(newUserData => user.value = newUserData);
+// });
+//
+// onUnmounted(() => {
+//   unsubscribe();
+//   unsubscribeAuth();
 // })
 
 
