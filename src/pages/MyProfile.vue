@@ -2,6 +2,7 @@
 import {subscribeToAuthChanges, upadteUserProfile} from "../services/auth";
 import AlertNotification from "../components/AlertNotification.vue";
 import {onMounted, onUnmounted, ref} from "vue";
+import UserProfileDetails from "../components/UserProfileDetails.vue";
 
 const {form, status, handleProfileUpdate} = useProfileForm();
 const {user} = useAuth();
@@ -121,20 +122,22 @@ function useAuth(){
         {{ status.text }}
       </AlertNotification>
 
-      <dl class="mb-3">
-        <dt>Email</dt>
-        <dd>{{ user.email }}</dd>
-        <dt>Nombre de usuario</dt>
-        <dd>
-          <template v-if="user.displayName">
-            {{ user.displayName }}
-          </template>
+<!--      <dl class="mb-3">-->
+<!--        <dt>Email</dt>-->
+<!--        <dd>{{ user.email }}</dd>-->
+<!--        <dt>Nombre de usuario</dt>-->
+<!--        <dd>-->
+<!--          <template v-if="user.displayName">-->
+<!--            {{ user.displayName }}-->
+<!--          </template>-->
 
-          <template v-else>
-            <span class="fst-italic">No contiene nombre de usuario</span>
-          </template>
-        </dd>
-      </dl>
+<!--          <template v-else>-->
+<!--            <span class="fst-italic">No contiene nombre de usuario</span>-->
+<!--          </template>-->
+<!--        </dd>-->
+<!--      </dl>-->
+
+      <UserProfileDetails :user="user" />
 
       <hr>
 

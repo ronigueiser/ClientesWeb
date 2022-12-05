@@ -4,7 +4,8 @@ import Register from '../pages/Register.vue';
 import Chat from '../pages/Chat.vue';
 import Login from '../pages/Login.vue';
 import {subscribeToAuthChanges} from "../services/auth";
-import Profile from "../pages/Profile.vue";
+import MyProfile from "../pages/MyProfile.vue";
+import UserProfile from "../pages/UserProfile.vue";
 
 const routes = [
     {
@@ -28,7 +29,14 @@ const routes = [
     },
     {
         path: '/perfil',
-        component: Profile,
+        component: MyProfile,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/usuario/:id',
+        component: UserProfile,
         meta: {
             requiresAuth: true,
         },

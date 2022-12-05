@@ -1,6 +1,9 @@
 <script>
 import {AUTH_ERROR_MESSAGES, login} from "../services/auth.js";
 import AlertNotification from "../components/AlertNotification.vue";
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 export default {
   name: "Login",

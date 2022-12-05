@@ -1,9 +1,12 @@
 import {getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile, createUserWithEmailAndPassword} from 'firebase/auth'
+import {createUserProfile, updateUserProfile as updateUserProfileInDatabase} from "./user-profiles";
 
 export const AUTH_ERROR_MESSAGES = {
     'auth/invalid-email': 'El email parece no ser válido',
     'auth/internal-error': 'Parece haber un error tanto en el email como en la contraseña',
     'auth/wrong-password': 'Las credenciales no coinciden con los registros',
+    'auth/user-not-found': 'No se encontró un usuario con los datos ingresados',
+    'auth/email-already-in-use': 'El mail que usas ya existe en nuestro sistema'
 }
 
 const auth = getAuth();
@@ -75,25 +78,34 @@ export function logout(){
 * Si todo sale bien, crea un nuevo usuario
  */
 
-export function register({email, password}){
-    return createUserWithEmailAndPassword(auth, email, password)
+export async function register({email, password}){
+    const {user} = await createUserWithEmailAndPassword(auth, email, password)
+
+    return createUserProfile(user.uid, {
+        email,
+    })
 }
 
 /*
 actualiza la info de perfil del usuario
  */
 
-export function upadteUserProfile({displayName}){
-    return updateProfile(auth.currentUser, {
+export async function upadteUserProfile({displayName}){
+    const authPromise =  updateProfile(auth.currentUser, {
         displayName,
+    });
+    const profilePromise = updateUserProfileInDatabase(userData.id, {
+        displayName
     })
-        .then(() => {
-            userData = {
-                ...userData,
-                displayName,
-            }
-            notifyAll()
-        });
+
+    await Promise.all([authPromise, profilePromise])
+
+    userData = {
+        ...userData,
+        displayName,
+    }
+    notifyAll()
+
 }
 
 /*

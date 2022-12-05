@@ -105,6 +105,7 @@ export default {
       saveChatMessage({
         ...this.newMessage,
         name: this.user.displayName || this.user.email,
+        userId: this.user.id,
       });
           this.newMessage.text = "";
     }
@@ -137,7 +138,17 @@ export default {
           <div id="messages">
             <ul v-if="messageLoaded">
               <li v-for="message in messages" :key="message.id">
-                <b>({{ dateToString(message.created_at) }}) {{ message.name }} dijo</b>: {{ message.text }}
+                <b>
+                  ({{ dateToString(message.created_at) }})
+                  <router-link
+                      v-if="message.userId !== user.id"
+                      :to="`/usuario/${message.userId}`"
+                  >{{ message.name }}</router-link>
+                  <template
+                      v-else
+                  >{{ message.name }}</template>
+                  dijo
+                </b>: {{ message.text }}
               </li>
             </ul>
             <Loader v-else/>
