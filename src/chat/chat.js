@@ -36,7 +36,6 @@ export function suscribeToChatMessages(callback){
         const docs = snapshot.docs.map(item => {
             return {
                 ...item.data(),
-
                 created_at: item.data().created_at?.toDate(),
                 id: item.id,
             }

@@ -44,6 +44,7 @@ onAuthStateChanged(auth, user=>{
     }
 
     console.log("user: ", user)
+    console.log(user.displayName)
     notifyAll();
 
 })
@@ -108,7 +109,6 @@ export function subscribeToAuthChanges(callback){
     notify(callback)
 
     return () => {
-
         observers = observers.filter(observerCallback => observerCallback !== callback);
         console.log("observer removido. El stack actual es: ", observers)
     }

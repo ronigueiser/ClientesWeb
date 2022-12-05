@@ -1,54 +1,115 @@
-<script>
+<script setup>
 import {subscribeToAuthChanges, upadteUserProfile} from "../services/auth";
 import AlertNotification from "../components/AlertNotification.vue";
+import {onMounted, onUnmounted, ref} from "vue";
 
-export default {
-  name: "Profile",
-  data: () => ({
-    form: {
-      displayName: '',
-    },
-    user: {
-      id: null,
-      email: null,
-      displayName: null,
-    },
-    status: {
-      type: 'info',
-      text:'',
-    },
-    unsubscribeFn: () => {},
-  }),
-  methods: {
-    handleProfileUpdate(){
+const {form, status, handleProfileUpdate} = useProfileForm();
+const {user} = useAuth();
+
+
+function useProfileForm () {
+  const form = ref({displayName: ''});
+  const status = ref({
+    type: 'info',
+    text: '',
+  });
+  function handleProfileUpdate(){
       //TODO validacion
 
       upadteUserProfile({
-        displayName: this.form.displayName,
+        displayName: form.value.displayName,
       })
           .then(() => {
-            this.status = {
+            status.value= {
               text: 'Se actualizó correctamente la información',
               type: 'success',
 
             }
           })
           .catch(err => {
-            this.status = {
+            status.value= {
               type: 'danger',
               text: err,
             };
           })
     }
-  },
-  mounted() {
-    this.unsubscribeFn = subscribeToAuthChanges(newUserData => this.user = newUserData)
-    this.form.displayName = this.user.displayName;
-  },
-  unmounted() {
-    this.unsubscribeFn();
+
+    return {
+      form,
+      status,
+      handleProfileUpdate,
+    }
+}
+
+function useAuth(){
+  const user = ref({
+      id: null,
+      email: null,
+      displayName: null,
+  });
+
+  let unsubscribe;
+
+  onMounted(() => {
+    unsubscribe = subscribeToAuthChanges(newUserData => user.value = newUserData);
+
+  });
+
+  onUnmounted(() => {
+    unsubscribe()
+  })
+  return{
+    user,
   }
 }
+
+// export default {
+//   name: "Profile",
+//   data: () => ({
+//     form: {
+//       displayName: '',
+//     },
+//     user: {
+//       id: null,
+//       email: null,
+//       displayName: null,
+//     },
+//     status: {
+//       type: 'info',
+//       text:'',
+//     },
+//     unsubscribeFn: () => {},
+//   }),
+//   methods: {
+//     handleProfileUpdate(){
+//       //TODO validacion
+//
+//       upadteUserProfile({
+//         displayName: this.form.displayName,
+//       })
+//           .then(() => {
+//             this.status = {
+//               text: 'Se actualizó correctamente la información',
+//               type: 'success',
+//
+//             }
+//           })
+//           .catch(err => {
+//             this.status = {
+//               type: 'danger',
+//               text: err,
+//             };
+//           })
+//     }
+//   },
+//   mounted() {
+//     this.unsubscribeFn = subscribeToAuthChanges(newUserData => this.user = newUserData)
+//     this.form.displayName = this.user.displayName;
+//   },
+//   unmounted() {
+//     this.unsubscribeFn();
+//   }
+// }
 </script>
 
 <template>

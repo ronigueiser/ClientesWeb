@@ -4,43 +4,80 @@ import {dateToString} from "../helpers/date";
 import Loader from "../components/Loader.vue";
 import {subscribeToAuthChanges} from "../services/auth";
 // import {onMounted, onUnmounted, ref} from "vue";
-
-// const messages = ref([]);
-// const newMessage = ref({
-//     text: '',
-// });
 //
-// const user = ref ({
-//     id: null,
-//     email: null,
-//      displayName: null,
-// });
 //
-// const messagesLoaded = ref(false);
+// const {messages, messagesLoaded} = useChat()
+// const {newMesage, save} = useChatForm()
+// const {user} = useAuth()
 //
-// let unsubscribe, unsubscribeAuth;
 //
-// function save() {
-//     saveChatMessage({
-//       ...newMessage.value,
-//        name: user.value.displayName || user.value.email,
-//     })
-//   newMessage.value.text = "";
+// function useChat(){
+//   const messages = ref([]);
+//   const messagesLoaded = ref(false);
+//
+//   let unsubscribe
+//
+//   onMounted(() =>{
+//     unsubscribe = suscribeToChatMessages(newMessages => {
+//       messages.value = newMessages;
+//       messagesLoaded.value = true;
+//     });
+//   })
+//
+//   onUnmounted(()=> {
+//     unsubscribe()
+//   });
+//
+//   return{
+//     messages,
+//     messagesLoaded,
+//   }
 // }
 //
-// onMounted(() => {
-//   unsubscribe = suscribeToChatMessages(newMessages => {
-//     messages.value = newMessages;
-//     messagesLoaded.value = true;
-//   });
-//   unsubscribeAuth = subscribeToAuthChanges(newUserData => user.value = newUserData);
-// });
+// function useChatForm(){
 //
-// onUnmounted(() => {
-//   unsubscribe();
-//   unsubscribeAuth();
-// })
-
+//   const newMessage = ref({
+//     text: '',
+//   });
+//
+//   function save() {
+//     saveChatMessage({
+//       ...newMessage.value,
+//       name: user.value.displayName || user.value.email,
+//     })
+//     newMessage.value.text = "";
+//   }
+//   return {
+//     newMessage,
+//     save
+//   }
+// }
+//
+//
+// function useAuth() {
+//
+//   const user = ref ({
+//     id: null,
+//     email: null,
+//     displayName: null,
+//   });
+//
+//   let unsubscribe;
+//
+//
+//
+//   onMounted(() => {
+//     unsubscribe = subscribeToAuthChanges(newUserData => user.value = newUserData);
+//   });
+//
+//   onUnmounted(() => {
+//     unsubscribe();
+//   })
+//
+//   return {
+//     user,
+//   }
+// }
 
 
 
