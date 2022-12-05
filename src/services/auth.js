@@ -47,7 +47,6 @@ onAuthStateChanged(auth, user=>{
     }
 
     console.log("user: ", user)
-    console.log(user.displayName)
     notifyAll();
 
 })
