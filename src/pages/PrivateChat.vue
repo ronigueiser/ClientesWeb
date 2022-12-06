@@ -1,16 +1,23 @@
 <script setup>
 
-import {ref} from 'vue';
+import {onMounted, onUnmounted, ref} from 'vue';
 import useAuth from "../composition/useAuth.js";
 import {useUserProfile} from "../composition/useUserProfile.js";
-import {sendPrivateMessage} from "../services/private-chats.js";
+import {sendPrivateMessage, subscribeToPrivateChat} from "../services/private-chats.js";
+import {useRoute} from "vue-router";
+import ChatMessageUser from "../components/ChatMessageUser.vue";
+import {dateToString} from "../helpers/date";
+import '../css/chat.css'
+
 
 const {
   user,
   chattingUser,
-  message,
+  message: formMessage,
   handleSumbit
 } = usePrivateChatForm();
+
+const {messages} = usePrivateChat();
 
 function usePrivateChatForm() {
   const {user} = useAuth();
@@ -34,6 +41,30 @@ function usePrivateChatForm() {
   }
 
 }
+
+function usePrivateChat() {
+  const messages = ref([]);
+  const {user} = useAuth();
+  const route = useRoute();
+  let unsubscribe;
+
+  onMounted(async () => {
+    unsubscribe = await subscribeToPrivateChat({
+      from: user.value.id,
+      to: route.params.id,
+    }, newMessages => messages.value = newMessages)
+  })
+
+  onUnmounted(()=> {
+    if(typeof unsubscribe !== 'function') return;
+    unsubscribe();
+  })
+
+  return {
+    messages
+  }
+
+}
 </script>
 
 <template>
@@ -43,7 +74,27 @@ function usePrivateChatForm() {
 
     <h2 class="visually-hidden">Mensajes</h2>
 
-    <div class="chat mb-3"></div>
+    <div class="chat mb-3 chat-privado">
+      <ul>
+        <li
+          v-for="message in messages"
+          :key="message.created_at"
+        >
+         <b>
+           ({{ dateToString(message.created_at) }})
+
+           {{
+             message.from === user.id ?
+                 user.displayName || user.email :
+                 chattingUser.displayName || chattingUser.email
+           }}
+
+           Dijo
+         </b>:
+          <div>{{ message.text }}</div>
+        </li>
+      </ul>
+    </div>
 
     <h2 class="visually-hidden">Enviar mensaje</h2>
 
@@ -56,7 +107,7 @@ function usePrivateChatForm() {
       <textarea
           id="message"
           class="form-control mb-3"
-          v-model="message"
+          v-model="formMessage"
       ></textarea>
 
       <button type="submit" class="btn btn-primary">Enviar</button>

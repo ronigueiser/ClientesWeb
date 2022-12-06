@@ -19,3 +19,49 @@ html, body, #app{
 .footer p{
     margin-bottom: 0;
 }
+
+.chat {
+    height: 450px;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.cont-valores {
+    background-color: white;
+    color: black;
+    padding: 25px;
+}
+
+body {
+    background-color: #F5F5DC;
+}
+
+.quienes-somos{
+    background-color: #D91E1C;
+    color: white;
+    padding: 25px;
+}
+
+.negrita{
+    font-weight: 500;
+}
+
+.titulo{
+    display: flex;
+    align-items: center;
+}
+.cursos{
+    padding: 30px;
+
+}
+
+.cont-cursos-home{
+    display: flex;
+    justify-content: center;
+}
+
+.nav-name{
+    color:#D91E1C;
+    font-weight: bold;
+}

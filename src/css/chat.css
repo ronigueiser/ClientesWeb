@@ -1,0 +1,35 @@
+ul {
+    list-style: none;
+}
+
+.sala-chat{
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid lightgray;
+    background-color: #eeeeee;
+}
+
+.sala-chat h2{
+    color: #d91e1c;
+    font-size: 2rem;
+}
+
+.mensajes ul li{
+    font-size: 1.1rem;
+}
+
+.anuncio-chat{
+    background-color: #D91E1C;
+    color: white;
+    border-radius: 15px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.chat-privado{
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid lightgray;
+    background-color: #eeeeee;
+}

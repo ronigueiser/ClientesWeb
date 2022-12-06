@@ -6,9 +6,11 @@ defineProps({
   }
 })
 
+import '../css/perfil.css'
+
 </script>
 <template>
-  <dl class="mb-3">
+  <dl class="mb-3 info-perfil">
     <dt>Email</dt>
     <dd>{{ user.email }}</dd>
     <dt>Nombre de usuario</dt>

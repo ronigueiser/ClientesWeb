@@ -4,6 +4,8 @@ import {dateToString} from "../helpers/date";
 import Loader from "../components/Loader.vue";
 import {subscribeToAuthChanges} from "../services/auth";
 import ChatMessageUser from "../components/ChatMessageUser.vue";
+import '../css/chat.css'
+
 // import {onMounted, onUnmounted, ref} from "vue";
 //
 //
@@ -128,15 +130,14 @@ export default {
 
 <template>
     <section>
-      <h1 class="mb-3">Chat</h1>
-
       <main class="container py-3">
-      <h1>Dv Chat</h1>
+      <h1>Cruz Roja - Chat de Soporte</h1>
+        <p class="col-5 anuncio-chat">Podes hacer click en el nombre para iniciar un chat privado</p>
 
       <div class="row">
-        <div class="col-8">
+        <div class="col-8 sala-chat">
           <h2>Sala de Chat</h2>
-          <div id="messages">
+          <div id="messages" class="mensajes">
             <ul v-if="messageLoaded">
               <li v-for="message in messages" :key="message.id">
                 <b>
@@ -155,7 +156,7 @@ export default {
         </div>
 
         <div class="col-4">
-          <h2>Enviá un mensaje</h2>
+          <h2>Manda un mensaje</h2>
 
           <form action="#"
                 method="post"
@@ -164,11 +165,11 @@ export default {
           >
 
             <div class="mb-3">
-              <span class="form-label">Nombre</span>
+              <span class="form-label">De:</span>
               <div>{{ this.user.displayName || this.user.email }}</div>
             </div>
             <div class="mb-3">
-              <label for="text" class="form-label">Mensaje</label>
+              <label for="text" class="form-label">Mensaje:</label>
               <textarea id="text" class="form-control" v-model="newMessage.text"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Enviar</button>

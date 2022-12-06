@@ -60,9 +60,11 @@ const {user} = useUserProfile();
 
 <template>
     <section class="mb-3">
-      <h1 class="mb-3">Email o nombre del usuario</h1>
+      <h1 class="mb-3">Perfil - {{ user.displayName || user.email }}</h1>
      <UserProfileDetails :user="user"/>
     </section>
+
+
 
   <router-link :to="`/usuario/${user.id}/chat`" class="btn btn-primary">Iniciar chat con {{ user.displayName || user.email }}</router-link>
 
