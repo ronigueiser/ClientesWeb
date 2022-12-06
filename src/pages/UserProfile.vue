@@ -1,12 +1,13 @@
 <script setup>
-import {subscribeToAuthChanges, upadteUserProfile} from "../services/auth";
-import AlertNotification from "../components/AlertNotification.vue";
-import {onMounted, onUnmounted, ref} from "vue";
+import {onMounted, ref} from "vue";
+import {useRoute} from "vue-router";
+import UserProfileDetails from "../components/UserProfileDetails.vue";
+import {getUserProfile} from "../services/user-profiles.js";
+import {useUserProfile} from "../composition/useUserProfile.js";
 
 
 
-const user = {}
-
+const {user} = useUserProfile();
 
 // export default {
 //   name: "Profile",
@@ -58,23 +59,13 @@ const user = {}
 </script>
 
 <template>
-    <section>
+    <section class="mb-3">
       <h1 class="mb-3">Email o nombre del usuario</h1>
-      <dl class="mb-3">
-        <dt>Email</dt>
-        <dd>{{ user.email }}</dd>
-        <dt>Nombre de usuario</dt>
-        <dd>
-          <template v-if="user.displayName">
-            {{ user.displayName }}
-          </template>
-
-          <template v-else>
-            <span class="fst-italic">No contiene nombre de usuario</span>
-          </template>
-        </dd>
-      </dl>
+     <UserProfileDetails :user="user"/>
     </section>
+
+  <router-link :to="`/usuario/${user.id}/chat`" class="btn btn-primary">Iniciar chat con {{ user.displayName || user.email }}</router-link>
+
 </template>
 
 

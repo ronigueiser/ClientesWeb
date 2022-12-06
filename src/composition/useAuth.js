@@ -1,4 +1,4 @@
-import {onMounted, onUnmounted} from "vue";
+import {onMounted, onUnmounted, ref} from "vue";
 import {subscribeToAuthChanges} from "../services/auth.js";
 
 export default function useAuth(){
@@ -15,7 +15,7 @@ export default function useAuth(){
     })
 
     onUnmounted(() => {
-        unsubscribe
+        unsubscribe()
     })
 
     return {

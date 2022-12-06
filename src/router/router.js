@@ -6,6 +6,7 @@ import Login from '../pages/Login.vue';
 import {subscribeToAuthChanges} from "../services/auth";
 import MyProfile from "../pages/MyProfile.vue";
 import UserProfile from "../pages/UserProfile.vue";
+import PrivateChat from "../pages/PrivateChat.vue";
 
 const routes = [
     {
@@ -37,6 +38,13 @@ const routes = [
     {
         path: '/usuario/:id',
         component: UserProfile,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/usuario/:id/chat',
+        component: PrivateChat,
         meta: {
             requiresAuth: true,
         },
