@@ -3,6 +3,8 @@
 <script>
 import {logout, subscribeToAuthChanges} from "./services/auth.js";
 import './css/app.css'
+import useAuth from "./composition/useAuth";
+const {user} = useAuth()
 export default {
   name: "App",
   data: () => ({
@@ -41,12 +43,17 @@ export default {
           <li class="nav-item">
             <router-link class="nav-link" to="/chat">Chat</router-link>
           </li>
+          <template  v-if="user.admin === true">
+            <li class="nav-item">
+              <router-link class="nav-link" to="/panel">Panel</router-link>
+            </li>
+          </template>
+
           <li class="nav-item">
             <router-link class="nav-link" to="/cursos">Cursos</router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/panel">Panel</router-link>
-          </li>
+
+
           <template v-if="user.id === null">
             <li class="nav-item">
               <router-link class="nav-link" to="/iniciar-sesion">Iniciar Sesión</router-link>

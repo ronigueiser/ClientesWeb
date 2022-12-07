@@ -1,8 +1,11 @@
 <script>
+import useAuth from "../composition/useAuth";
+
 export default {
   name: "Home"
 }
 import '../css/app.css'
+
 </script>
 
 <template>
@@ -23,7 +26,7 @@ import '../css/app.css'
     </div>
   </section>
 
-  <h2 class="negrita">Nuestros valores</h2>
+  <h2 class="negrita mt-5">Nuestros valores</h2>
   <section class="cont-valores row">
 
 
@@ -80,7 +83,7 @@ import '../css/app.css'
 
   </section>
 
-  <section class="cont-cursos-home">
+  <section class="cont-cursos-home mt-5">
     <div class="col-8 cursos">
     <h2>Cursos</h2>
 
