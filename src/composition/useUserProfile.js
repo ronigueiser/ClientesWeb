@@ -14,7 +14,6 @@ export function useUserProfile() {
 
     onMounted(async () => {
         user.value = await getUserProfile(route.params.id);
-        console.log(user.value)
     })
 
     return {

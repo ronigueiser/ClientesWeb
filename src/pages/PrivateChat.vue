@@ -53,7 +53,6 @@ function usePrivateChat() {
       from: user.value.id,
       to: route.params.id,
     }, newMessages => messages.value = newMessages)
-   // console.log(route.params.id)
   })
 
   onUnmounted(()=> {
