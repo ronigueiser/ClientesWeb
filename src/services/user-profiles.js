@@ -11,12 +11,11 @@ const db = getFirestore();
 /*
  *  crea un nuevo perfil en la base de usuarios
  */
-export function createUserProfile(id, {email, displayName= null, photoURL= null, admin = false}) {
+export function createUserProfile(id, {email, displayName= null, photoURL= null}) {
     return setDoc(doc(db, 'users', id),{
         email,
         displayName,
         photoURL,
-        admin,
     })
 }
 

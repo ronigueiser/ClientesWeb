@@ -1,15 +1,5 @@
-import {
-    createUserWithEmailAndPassword,
-    getAuth,
-    onAuthStateChanged,
-    signInWithEmailAndPassword,
-    signOut,
-    updateProfile
-} from 'firebase/auth'
+import {getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile, createUserWithEmailAndPassword} from 'firebase/auth'
 import {createUserProfile, updateUserProfile as updateUserProfileInDatabase} from "./user-profiles";
-import {doc, getDoc, getFirestore} from "firebase/firestore";
-
-const db = getFirestore();
 
 export const AUTH_ERROR_MESSAGES = {
     'auth/invalid-email': 'El email parece no ser válido',
@@ -21,12 +11,11 @@ export const AUTH_ERROR_MESSAGES = {
 
 const auth = getAuth();
 
-//guardamos los datos del user auth, sino esta auth sera null
+//guardamos los datos del user auth, sino esta aut sera null
 let userData = {
     id: null,
     email: null,
     displayName: null,
-    admin: false,
 }
 
 /*
@@ -35,43 +24,15 @@ Recordamos el estado de auth del user
 
 if(localStorage.getItem('user') !== null){
     userData = JSON.parse(localStorage.getItem('user'));
-    console.log('UserData: ', userData)
 }
 
-async function getData(auth, user){
-    let docSnap
-
-    if (auth.currentUser !== null){
-        docSnap =  await getDoc(doc(db, 'users', user.uid))
-        // console.log("USER ",user.uid)
-        console.log("DocSnap ",docSnap.data())
-
-        return docSnap.data().administrador
-    }
-
-}
-
-
-onAuthStateChanged(auth,  async user => {
-
-
-
-    console.log("AUTH ",auth.currentUser)
-
+onAuthStateChanged(auth, user=>{
     if (user) {
-        // console.log('Datos usuario autenticado: ',user)
-        // if(user.email === 'roni@prueba.com'){
-        //    admin = true
-        // } else {
-        //     admin = false
-        // }
-        // console.log("docsnap ",docSnap.data())
+        console.log('usuario autenticado')
         userData = {
             id: user.uid,
             email: user.email,
-            displayName: user.displayName,
-            admin: getData(auth,user),
-
+            displayName: user.displayName
         }
         localStorage.setItem('user', JSON.stringify(userData));
 
@@ -81,13 +42,11 @@ onAuthStateChanged(auth,  async user => {
             id: null,
             email: null,
             displayName: null,
-            admin: null,
-
         }
         localStorage.removeItem('user');
     }
 
-    console.log("user: (auth.js)", user)
+    console.log("user: ", user)
     notifyAll();
 
 })
