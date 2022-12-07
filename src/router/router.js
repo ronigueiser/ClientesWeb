@@ -7,6 +7,10 @@ import {subscribeToAuthChanges} from "../services/auth";
 import MyProfile from "../pages/MyProfile.vue";
 import UserProfile from "../pages/UserProfile.vue";
 import PrivateChat from "../pages/PrivateChat.vue";
+import Cursos from "../pages/Cursos.vue";
+import CursosPublicar from "../pages/CursosPublicar.vue";
+import cursosView from "../pages/cursosView.vue";
+import cursosEditar from "../pages/cursosEditar.vue";
 
 const routes = [
     {
@@ -31,6 +35,34 @@ const routes = [
     {
         path: '/perfil',
         component: MyProfile,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/cursos',
+        component: Cursos,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/cursos/publicar',
+        component: CursosPublicar,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/cursos/:id',
+        component: cursosView,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/cursos/:id/editar',
+        component: cursosEditar,
         meta: {
             requiresAuth: true,
         },
