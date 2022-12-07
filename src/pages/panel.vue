@@ -21,6 +21,7 @@ function useCursos(){
 
   onMounted(async () => {
     reloadCursos();
+    console.log("User (pages.vue): ",user)
   })
 
   return {
@@ -71,7 +72,7 @@ function useCursosDelete() {
           <button class="btn btn-primary"><router-link class="ver-mas" :to="`/cursos/${entry.id}`">Ver más</router-link></button>
 <!--          <a href="#" class="btn btn-primary">Button</a>-->
           <div
-              v-if="entry.user === user.id"
+              v-if="user.admin === true"
               class="d-flex justify-content-end gap-2"
           >
             <router-link class="btn btn-warning" :to="`/cursos/${entry.id}/editar`">Editar</router-link>
