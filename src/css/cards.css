@@ -28,3 +28,21 @@
     border-radius: 5px;
     padding: 2rem;
 }
+
+.card-title a{
+    text-decoration: none;
+    color: #D91E1C;
+}
+
+.link-publicar a{
+    text-decoration: none;
+    color: white;
+}
+
+.link-publicar{
+    display: inline-block;
+    background-color: forestgreen;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+}

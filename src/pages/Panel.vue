@@ -48,7 +48,7 @@ function useCursosDelete() {
   <section>
       <h1 class="mb-3">Admin de Cursos</h1>
 
-    <div class="mb-3"><router-link to="/cursos/publicar">Publicar un Curso</router-link></div>
+    <div class="mb-3 link-publicar"><router-link to="/cursos/publicar">Publicar un Curso</router-link></div>
 
 <!--    <div class="row">-->
 <!--      <div class="col-6" v-for="entry in cursos">-->
