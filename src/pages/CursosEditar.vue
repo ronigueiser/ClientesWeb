@@ -1,23 +1,38 @@
 <script setup>
 import {ref} from "vue";
 import useAuth from "../composition/useAuth";
-import {publishCurso} from "../services/cursos";
+import {publishCurso, editCurso} from "../services/cursos";
+import {useCursosEntry} from "../composition/useCursosEntry";
 
-const {fields, handleSubmit} = useCursosForm();
+const {fields, handleSubmit} = useCursosEditForm();
 
-function useCursosForm() {
+
+function useCursosEditForm() {
 
   const {user} = useAuth()
   const fields = ref({
     title:'',
     desc: '',
     text:'',
-    price:0,
+    price:'',
 
   })
 
+
+  const {entry} = useCursosEntry({
+    onLoad: () => {
+      fields.value = {
+        title: entry.value.title,
+        desc: entry.value.desc,
+        text: entry.value.text,
+        price: entry.value.price,
+      }
+    }
+  });
+
   async function handleSubmit(){
-      await publishCurso({
+    // console.log(entry.value)
+      await editCurso(entry.value.id, {
         ...fields.value,
         user: user.value.id,
       })

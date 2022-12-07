@@ -1,23 +1,43 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import {dateToString} from "../helpers/date";
-import {getCursos} from "../services/cursos";
+import {deleteCursosEntry, getCursos} from "../services/cursos";
 import '../css/cards.css'
 import useAuth from "../composition/useAuth";
+import DeleteButtonModal from "../components/DeleteButtonModal.vue";
 
 
-const {cursos} = useCursos();
+const {cursos, reloadCursos} = useCursos();
 const {user} = useAuth()
+const {deleteEntry} = useCursosDelete();
+
 function useCursos(){
   const cursos = ref([])
 
+  async function reloadCursos() {
+    cursos.value = await getCursos()
+  }
+
 
   onMounted(async () => {
-    cursos.value = await getCursos();
+    reloadCursos();
   })
 
   return {
-    cursos
+    cursos,
+    reloadCursos
+  }
+}
+
+function useCursosDelete() {
+
+  async function deleteEntry(id) {
+    await deleteCursosEntry(id)
+    reloadCursos()
+  }
+
+  return {
+    deleteEntry
   }
 }
 
@@ -55,10 +75,9 @@ function useCursos(){
               class="d-flex justify-content-end gap-2"
           >
             <router-link class="btn btn-warning" :to="`/cursos/${entry.id}/editar`">Editar</router-link>
-            <form action="#" method="post" @submit.prevent="() => {}">
-
-              <button class="btn btn-danger" type="submit">Eliminar</button>
-            </form>
+            <DeleteButtonModal
+            @confirm="() => deleteEntry(entry.id)"
+            />
           </div>
         </div>
 

@@ -2,7 +2,7 @@ import {useRoute} from "vue-router";
 import {onMounted, ref} from "vue";
 import {getCursosEntry} from "../services/cursos";
 
-export function useCursosEntry() {
+export function useCursosEntry({onLoad} = {onLoad: () => {}}) {
     const route = useRoute();
     const entry = ref({
         id:'',
@@ -12,11 +12,13 @@ export function useCursosEntry() {
         price:'',
         user: '',
         date: null,
-    })
+    });
 
 
     onMounted(async () => {
         entry.value = await getCursosEntry(route.params.id)
+
+        onLoad();
     })
 
     return {

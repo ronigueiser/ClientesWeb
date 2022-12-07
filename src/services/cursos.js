@@ -1,7 +1,7 @@
 import {
     addDoc,
     collection, doc, getDoc, getDocs,
-    getFirestore, orderBy, query, serverTimestamp, setDoc
+    getFirestore, orderBy, query, serverTimestamp, setDoc, updateDoc, deleteDoc
 } from "firebase/firestore";
 
 const db = getFirestore();
@@ -59,4 +59,27 @@ export async function publishCurso({title, desc, text, price, user}){
         date: serverTimestamp(),
     })
 
+}
+/*
+ * Edita una noticia por id
+ */
+export async function editCurso(id, {title, desc, text, price, user}) {
+    console.log(id)
+    return updateDoc(doc(db, 'cursos', id), {
+        title,
+        desc,
+        text,
+        price,
+        user,
+        updated_at: serverTimestamp(),
+    })
+}
+
+
+/*
+ * Elimina un curso
+ */
+
+export async function deleteCursosEntry(id) {
+    return deleteDoc(doc(db,'cursos', id))
 }
