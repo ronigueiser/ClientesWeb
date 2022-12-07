@@ -4,6 +4,7 @@ import useAuth from "../composition/useAuth";
 import {publishCurso, editCurso} from "../services/cursos";
 import {useCursosEntry} from "../composition/useCursosEntry";
 
+
 const {fields, handleSubmit} = useCursosEditForm();
 
 
@@ -37,13 +38,6 @@ function useCursosEditForm() {
         user: user.value.id,
       })
 
-    fields.value = {
-      title:'',
-      desc: '',
-      text:'',
-      price:0,
-
-    }
   }
 
   return {
@@ -78,7 +72,7 @@ function useCursosEditForm() {
         <input type="number" id="price" class="form-control" v-model="fields.price">
       </div>
 
-      <button type="submit" class="btn btn-primary w-100">Editar</button>
+      <button type="submit" class="btn btn-primary edit w-100"><router-link :to="`/panel`" style="color: white; text-decoration: none">Editar</router-link></button>
     </form>
   </section>
 </template>

@@ -7,6 +7,7 @@ import {subscribeToAuthChanges} from "../services/auth";
 import MyProfile from "../pages/MyProfile.vue";
 import UserProfile from "../pages/UserProfile.vue";
 import PrivateChat from "../pages/PrivateChat.vue";
+import Panel from "../pages/Panel.vue";
 import Cursos from "../pages/Cursos.vue";
 import CursosPublicar from "../pages/CursosPublicar.vue";
 import cursosView from "../pages/cursosView.vue";
@@ -35,6 +36,13 @@ const routes = [
     {
         path: '/perfil',
         component: MyProfile,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/panel',
+        component: Panel,
         meta: {
             requiresAuth: true,
         },

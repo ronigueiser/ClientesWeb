@@ -44,6 +44,9 @@ export default {
           <li class="nav-item">
             <router-link class="nav-link" to="/cursos">Cursos</router-link>
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/panel">Panel</router-link>
+          </li>
           <template v-if="user.id === null">
             <li class="nav-item">
               <router-link class="nav-link" to="/iniciar-sesion">Iniciar Sesión</router-link>
